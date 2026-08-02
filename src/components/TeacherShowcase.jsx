@@ -1,104 +1,110 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Star, ChevronLeft, ChevronRight, Award } from 'lucide-react';
-import { playPopSound } from '../utils/audio';
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { Star, ChevronLeft, ChevronRight, Award } from "lucide-react";
+import { playPopSound } from "../utils/audio";
 
 const TEACHERS_DATA = [
   {
     id: 1,
-    name: 'Teacher Sarah Miller',
-    countryName: 'USA',
-    role: 'Head of ESL & Phonics',
+    name: "Teacher Sarah Miller",
+    countryName: "USA",
+    role: "Head of ESL & Phonics",
     rating: 5.0,
     pipBadge: "Pip's Star Teacher ⭐",
-    pipBadgeBg: 'bg-[#FFDE59]',
-    rotation: '-rotate-3',
-    degree: 'Master of Education in Elementary Ed & TEFL',
-    motto: 'Building confidence through phonics games & songs',
-    tags: ['Phonics Master', 'Early Literacy'],
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#FFDE59',
-    cardBg: '#FFFDF0'
+    pipBadgeBg: "bg-[#FFDE59]",
+    rotation: "-rotate-3",
+    degree: "Master of Education in Elementary Ed & TEFL",
+    motto: "Building confidence through phonics games & songs",
+    tags: ["Phonics", "Blending", "Decoding"],
+    avatar:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#FFDE59",
+    cardBg: "#FFFDF0",
   },
   {
     id: 2,
-    name: 'Teacher David Chen',
-    countryName: 'Canada',
-    role: 'STEM & Science English',
+    name: "Teacher David Chen",
+    countryName: "Canada",
+    role: "STEM & Science English",
     rating: 4.98,
     pipBadge: "Pip's Science Buddy 🔬",
-    pipBadgeBg: 'bg-[#2EC4B6]',
-    rotation: 'rotate-3',
-    degree: 'Bachelor of Arts in Linguistics & TESOL',
-    motto: 'Hands-on STEM experiments meets English discovery',
-    tags: ['STEM English', 'Kid Discoveries'],
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#2EC4B6',
-    cardBg: '#F0FBFA'
+    pipBadgeBg: "bg-[#2EC4B6]",
+    rotation: "rotate-3",
+    degree: "Bachelor of Arts in Linguistics & TESOL",
+    motto: "Hands-on STEM experiments meets English discovery",
+    tags: ["Science", "Experiments", "STEM"],
+    avatar:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#2EC4B6",
+    cardBg: "#F0FBFA",
   },
   {
     id: 3,
-    name: 'Teacher Emma Watson',
-    countryName: 'UK',
-    role: 'Public Speaking & Debate',
+    name: "Teacher Emma Watson",
+    countryName: "UK",
+    role: "Public Speaking & Debate",
     rating: 5.0,
-    pipBadge: 'Master Storyteller 📚',
-    pipBadgeBg: 'bg-[#A594F9]',
-    rotation: '-rotate-2',
-    degree: 'Bachelor of Arts in English Literature (Cambridge)',
-    motto: 'Persuasive speaking & Cambridge exam prep',
-    tags: ['Public Speaking', 'Story Craft'],
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#A594F9',
-    cardBg: '#F5F3FF'
+    pipBadge: "Master Storyteller 📚",
+    pipBadgeBg: "bg-[#A594F9]",
+    rotation: "-rotate-2",
+    degree: "Bachelor of Arts in English Literature (Cambridge)",
+    motto: "Persuasive speaking & Cambridge exam prep",
+    tags: ["Conversation", "Presentation", "Debate"],
+    avatar:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#A594F9",
+    cardBg: "#F5F3FF",
   },
   {
     id: 4,
-    name: 'Teacher Liam Wilson',
-    countryName: 'Australia',
-    role: 'Interactive Reading & Vocab',
+    name: "Teacher Liam Wilson",
+    countryName: "Australia",
+    role: "Interactive Reading & Vocab",
     rating: 4.96,
     pipBadge: "Pip's Aussie Mate 🦘",
-    pipBadgeBg: 'bg-[#FF9F1C]',
-    rotation: 'rotate-4',
-    degree: 'Bachelor of Education in Early Childhood & CELTA',
-    motto: 'Interactive Aussie storybooks & pronunciation',
-    tags: ['Reading Club', 'Vocab Builder'],
-    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#FF9F1C',
-    cardBg: '#FFF7ED'
+    pipBadgeBg: "bg-[#FF9F1C]",
+    rotation: "rotate-4",
+    degree: "Bachelor of Education in Early Childhood",
+    motto: "Interactive Aussie storybooks & pronunciation",
+    tags: ["Reading", "Vocabulary", "Pronunciation"],
+    avatar:
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#FF9F1C",
+    cardBg: "#FFF7ED",
   },
   {
     id: 5,
-    name: 'Teacher Maria Garcia',
-    countryName: 'USA',
-    role: 'Early Childhood Songs & Games',
+    name: "Teacher Maria Garcia",
+    countryName: "USA",
+    role: "Early Childhood Songs & Games",
     rating: 4.99,
-    pipBadge: 'Music & Rhymes 🎵',
-    pipBadgeBg: 'bg-[#FF85A1]',
-    rotation: '-rotate-4',
-    degree: 'Master of Arts in Early Childhood Education',
-    motto: 'Puppets, music & rhymes for early learners',
-    tags: ['Rhymes & Songs', 'Ages 3-5'],
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#FF85A1',
-    cardBg: '#FFF1F2'
+    pipBadge: "Music & Rhymes 🎵",
+    pipBadgeBg: "bg-[#FF85A1]",
+    rotation: "-rotate-4",
+    degree: "Master of Arts in Early Childhood Education",
+    motto: "Puppets, music & rhymes for early learners",
+    tags: ["Songs", "Rhymes", "Games"],
+    avatar:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#FF85A1",
+    cardBg: "#FFF1F2",
   },
   {
     id: 6,
-    name: 'Teacher James Taylor',
-    countryName: 'UK',
-    role: 'Logic & Math in English',
+    name: "Teacher James Taylor",
+    countryName: "UK",
+    role: "Logic & Math in English",
     rating: 4.97,
-    pipBadge: 'Math Explorer 🧮',
-    pipBadgeBg: 'bg-[#2EC4B6]',
-    rotation: 'rotate-2',
-    degree: 'Bachelor of Science in Mathematics & TEFL',
-    motto: 'Logic puzzles & problem-solving in English',
-    tags: ['Logic Puzzles', 'Math English'],
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    accentColor: '#2EC4B6',
-    cardBg: '#F0FBFA'
-  }
+    pipBadge: "Math Explorer 🧮",
+    pipBadgeBg: "bg-[#2EC4B6]",
+    rotation: "rotate-2",
+    degree: "Bachelor of Science in Mathematics & TEFL",
+    motto: "Logic puzzles & problem-solving in English",
+    tags: ["Reasoning", "Puzzles", "Numbers"],
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    accentColor: "#2EC4B6",
+    cardBg: "#F0FBFA",
+  },
 ];
 
 const PERSPECTIVE = 1600;
@@ -119,19 +125,19 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setCardWidth(300);
-        setCardHeight(470);
+        setCardWidth(290);
+        setCardHeight(450);
       } else if (window.innerWidth < 1024) {
-        setCardWidth(340);
-        setCardHeight(480);
+        setCardWidth(330);
+        setCardHeight(460);
       } else {
-        setCardWidth(380);
-        setCardHeight(490);
+        setCardWidth(360);
+        setCardHeight(470);
       }
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const lock = useCallback(() => {
@@ -145,10 +151,10 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
     (dir) => {
       if (lockRef.current) return;
       lock();
-      playPopSound(dir > 0 ? 620 : 520, 'sine');
+      playPopSound(dir > 0 ? 620 : 520, "sine");
       setActive((a) => (((a + dir) % n) + n) % n);
     },
-    [n, lock]
+    [n, lock],
   );
 
   const handleCardClick = useCallback(
@@ -156,31 +162,31 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
       if (lockRef.current) return;
       if (i !== active) {
         lock();
-        playPopSound(580, 'sine');
+        playPopSound(580, "sine");
         setActive(i);
       }
     },
-    [active, lock]
+    [active, lock],
   );
 
   const handleDotClick = (i) => {
     if (lockRef.current || i === active) return;
     lock();
-    playPopSound(580, 'sine');
+    playPopSound(580, "sine");
     setActive(i);
   };
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (e.key === 'ArrowRight') {
+      if (e.key === "ArrowRight") {
         e.preventDefault();
         step(1);
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         step(-1);
       }
     },
-    [step]
+    [step],
   );
 
   const handleTouchStart = (e) => {
@@ -204,31 +210,46 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
   };
 
   return (
-    <section id="teachers" className="py-16 md:py-24 bg-[#FFFDF6] border-b-[3.5px] border-[#121212] relative overflow-visible">
+    <section
+      id="teachers"
+      className="py-16 md:py-24 bg-[#FFFDF6] border-b-[3.5px] border-[#121212] relative overflow-visible"
+    >
       {/* Decorative Organic Vector Shapes */}
       <div className="absolute top-10 right-10 hidden lg:block rotate-12 pointer-events-none">
-        <svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="filter drop-shadow-[3.5px_3.5px_0px_#121212]">
-          <path d="M 50 20 C 58 5 72 5 80 20 C 95 28 95 42 80 50 C 95 58 95 72 80 80 C 72 95 58 95 50 80 C 42 95 28 95 20 80 C 5 72 5 58 20 50 C 5 42 5 28 20 20 C 28 5 42 5 50 20 Z" fill="#FFDE59" stroke="#121212" strokeWidth="4" />
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="filter drop-shadow-[3.5px_3.5px_0px_#121212]"
+        >
+          <path
+            d="M 50 20 C 58 5 72 5 80 20 C 95 28 95 42 80 50 C 95 58 95 72 80 80 C 72 95 58 95 50 80 C 42 95 28 95 20 80 C 5 72 5 58 20 50 C 5 42 5 28 20 20 C 28 5 42 5 50 20 Z"
+            fill="#FFDE59"
+            stroke="#121212"
+            strokeWidth="4"
+          />
         </svg>
       </div>
-      <div className="absolute bottom-8 left-12 hidden lg:block rotate-[-12deg] pointer-events-none">
+      <div className="absolute bottom-8 left-12 hidden lg:block -rotate-12 pointer-events-none">
         <div className="w-12 h-12 bg-[#2EC4B6] border-[3px] border-[#121212] rounded-full shadow-[3.5px_3.5px_0px_#121212]" />
       </div>
 
       <div className="container space-y-8 relative z-10 overflow-visible">
-        
         {/* Section Header & Coverflow Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border-[2.5px] border-[#121212] rounded-full shadow-[2.5px_2.5px_0px_#121212] font-black text-xs uppercase tracking-wider text-[#121212]">
               100% CERTIFIED PROFESSIONAL TEACHERS
             </div>
-            
+
             <h2 className="text-3xl md:text-5xl font-black text-[#121212] tracking-tight leading-tight">
               Meet Our Star Educators
             </h2>
             <p className="font-semibold text-sm md:text-base text-[#444] leading-relaxed">
-              Explore live schedules, certified specialties, and book your child's free 1-on-1 trial session.
+              Explore live schedules, certified specialties, and book your
+              child's free 1-on-1 trial session.
             </p>
           </div>
 
@@ -237,14 +258,14 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
             <button
               onClick={() => step(-1)}
               aria-label="Previous teacher"
-              className="w-12 h-12 bg-white hover:bg-[#FFDE59] text-[#121212] border-[3px] border-[#121212] rounded-2xl shadow-[3.5px_3.5px_0px_#121212] flex items-center justify-center transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#121212]"
+              className="w-12 h-12 bg-white hover:bg-[#FFDE59] text-[#121212] border-[3px] border-[#121212] rounded-2xl shadow-[3.5px_3.5px_0px_#121212] flex items-center justify-center transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]"
             >
               <ChevronLeft size={24} strokeWidth={3} />
             </button>
             <button
               onClick={() => step(1)}
               aria-label="Next teacher"
-              className="w-12 h-12 bg-[#FFDE59] hover:bg-[#ff9f1c] text-[#121212] border-[3px] border-[#121212] rounded-2xl shadow-[3.5px_3.5px_0px_#121212] flex items-center justify-center transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#121212]"
+              className="w-12 h-12 bg-[#FFDE59] hover:bg-[#ff9f1c] text-[#121212] border-[3px] border-[#121212] rounded-2xl shadow-[3.5px_3.5px_0px_#121212] flex items-center justify-center transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]"
             >
               <ChevronRight size={24} strokeWidth={3} />
             </button>
@@ -253,7 +274,7 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
 
         {/* Originkit 3D Coverflow Container */}
         <div
-          className="relative w-full h-[520px] md:h-[540px] flex items-center justify-center overflow-visible focus:outline-none py-4"
+          className="relative w-full h-130 md:h-135 flex items-center justify-center overflow-visible focus:outline-none py-4"
           style={{ perspective: `${PERSPECTIVE}px` }}
           tabIndex={0}
           role="group"
@@ -268,7 +289,7 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
             style={{
               width: cardWidth,
               height: cardHeight,
-              transformStyle: 'preserve-3d',
+              transformStyle: "preserve-3d",
             }}
           >
             {TEACHERS_DATA.map((teacher, i) => {
@@ -290,18 +311,19 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
               const rz = rel * sideTilt;
 
               const cardStyle = {
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
+                position: "absolute",
+                left: "50%",
+                top: "50%",
                 width: cardWidth,
                 height: cardHeight,
-                transformStyle: 'preserve-3d',
-                transformOrigin: 'center center',
+                transformStyle: "preserve-3d",
+                transformOrigin: "center center",
                 transform: `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`,
-                transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                transition:
+                  "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
                 opacity: visible ? 1 : 0,
-                cursor: isActive ? 'default' : 'pointer',
-                pointerEvents: visible ? 'auto' : 'none',
+                cursor: isActive ? "default" : "pointer",
+                pointerEvents: visible ? "auto" : "none",
                 zIndex: 10 - ax,
               };
 
@@ -312,47 +334,64 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
                   onClick={() => handleCardClick(i)}
                   aria-label={teacher.name}
                 >
-                  <div 
-                    className={`neo-card p-4 md:p-5 flex flex-col justify-between space-y-2.5 border-[3.5px] border-[#121212] rounded-2xl shadow-[5px_5px_0px_#121212] relative h-full select-none ${isActive ? '' : 'hover:brightness-95'}`}
-                    style={{ backgroundColor: teacher.cardBg || '#FFFDF6' }}
+                  <div
+                    className={`neo-card p-4 md:p-5 flex flex-col justify-between space-y-2.5 border-[3.5px] border-[#121212] rounded-2xl shadow-[5px_5px_0px_#121212] relative h-full select-none ${isActive ? "" : "hover:brightness-95"}`}
+                    style={{ backgroundColor: teacher.cardBg || "#FFFDF6" }}
                   >
-                    
                     {/* Top Image Frame */}
                     <div className="relative">
                       {/* Pinned Country Badge breaking out of image */}
                       <div className="absolute -top-3 -left-2 bg-white text-[#121212] font-black text-xs px-2.5 py-1 border-[2.5px] border-[#121212] rounded-full shadow-[2.5px_2.5px_0px_#121212] flex items-center gap-1.5 z-20">
-                        <span 
-                          className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#121212] shrink-0 inline-block" 
+                        <span
+                          className="w-2.5 h-2.5 rounded-full border-[1.5px] border-[#121212] shrink-0 inline-block"
                           style={{ backgroundColor: teacher.accentColor }}
                         />
                         <span>{teacher.countryName}</span>
                       </div>
 
-                      <div className="relative rounded-xl overflow-hidden border-[2.5px] border-[#121212] aspect-[4/3] bg-[#F9F7F1]">
-                        <img 
-                          src={teacher.avatar} 
-                          alt={teacher.name} 
+                      <div className="relative rounded-xl overflow-hidden border-[3px] border-[#121212] aspect-4/3 bg-[#F9F7F1] shadow-[inset_0_0_0_3px_rgba(18,18,18,0.15),inset_0_8px_20px_rgba(0,0,0,0.12)]">
+                        <img
+                          src={teacher.avatar}
+                          alt={teacher.name}
                           className="w-full h-full object-cover pointer-events-none"
                           draggable={false}
                         />
-                        
-                        {/* Rating Badge in Sunshine Yellow */}
-                        <div className="absolute top-2 right-2 bg-[#FFDE59] text-[#121212] font-black text-xs px-2.5 py-0.5 border-[2px] border-[#121212] rounded-lg shadow-[2px_2px_0px_#121212] flex items-center gap-1 z-10">
-                          <Star size={13} fill="#FFFFFF" stroke="#121212" strokeWidth={1.5} />
-                          <span>{teacher.rating.toFixed(2)}</span>
-                        </div>
                       </div>
 
                       {/* Dual Award Ribbon Tails attached outside bottom image border */}
-                      <div className="absolute top-[100%] right-6 flex items-start gap-1 z-20 pointer-events-none -mt-[1px]">
+                      <div className="absolute top-0 right-4 flex items-start gap-1 z-20 pointer-events-none mt-px">
                         {/* Left Ribbon Tail (Shorter) */}
-                        <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M 2 0 L 16 0 L 16 20 L 9 15 L 2 20 Z" fill={teacher.accentColor} stroke="#121212" strokeWidth="2" strokeLinejoin="miter" />
+                        <svg
+                          width="18"
+                          height="22"
+                          viewBox="0 0 18 22"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M 2 0 L 16 0 L 16 20 L 9 15 L 2 20 Z"
+                            fill={teacher.accentColor}
+                            stroke="#121212"
+                            strokeWidth="2"
+                            strokeLinejoin="miter"
+                          />
                         </svg>
 
                         {/* Right Ribbon Tail (Longer) */}
-                        <svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M 2 0 L 18 0 L 18 26 L 10 20 L 2 26 Z" fill={teacher.accentColor} stroke="#121212" strokeWidth="2" strokeLinejoin="miter" />
+                        <svg
+                          width="20"
+                          height="28"
+                          viewBox="0 0 20 28"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M 2 0 L 18 0 L 18 26 L 10 20 L 2 26 Z"
+                            fill={teacher.accentColor}
+                            stroke="#121212"
+                            strokeWidth="2"
+                            strokeLinejoin="miter"
+                          />
                         </svg>
                       </div>
                     </div>
@@ -360,35 +399,53 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
                     {/* Card Content Header */}
                     <div className="space-y-2 flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="font-black text-base md:text-lg text-[#121212] leading-tight">
-                          {teacher.name}
-                        </h3>
-                        <p className="font-bold text-xs text-[#555] mt-0.5">
-                          {teacher.role}
-                        </p>
+                        <div className="flex items-start justify-between gap-1.5">
+                          <div>
+                            <h3 className="font-black text-base md:text-lg text-[#121212] leading-tight">
+                              {teacher.name}
+                            </h3>
+                            <p className="font-bold text-xs text-[#555] mt-0.5">
+                              {teacher.role}
+                            </p>
+                          </div>
+                          {/* Rating Badge in Sunshine Yellow */}
+                          <div
+                            className="text-[#121212] font-black text-xs px-2.5 py-0.5 border-2 border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] flex items-center gap-1 shrink-0 mt-0.5"
+                            style={{ backgroundColor: teacher.accentColor }}
+                          >
+                            <Star
+                              size={12}
+                              fill="#FFDE59"
+                              stroke="#121212"
+                              strokeWidth={1.5}
+                            />
+                            <span>{teacher.rating.toFixed(2)}</span>
+                          </div>
+                        </div>
 
                         {/* Verified Credential / Achievement Tag */}
-                        <div className="flex items-start gap-1.5 mt-1.5 px-2.5 py-1 bg-[#FFFDF6] border-[1.5px] border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] text-[11px] font-black text-[#121212]">
-                          <Award size={13} className="text-[#FF9F1C] shrink-0 mt-0.5" strokeWidth={2.5} />
+                        <div className="mt-2 flex items-start gap-1 px-3 py-2 bg-[#FFFDF6] border-[1.5px] border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] text-xs font-black text-[#121212]">
+                          <Award
+                            size={18}
+                            className="text-[#FF9F1C] shrink-0"
+                            fill="#FF9F1C"
+                            stroke="#121212"
+                            strokeWidth={2}
+                          />
                           <span className="leading-snug">{teacher.degree}</span>
                         </div>
-                      </div>
 
-                      {/* Teaching Motto / Philosophy Pill directly ABOVE subject tags */}
-                      <div className="flex items-center px-2.5 py-1.5 bg-[#FFFDF6] border-[1.5px] border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] text-[11px] font-black text-[#121212]">
-                        <span className="truncate">{teacher.motto}</span>
-                      </div>
-
-                      {/* Subject / Skill Tags */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {teacher.tags.map((tag, idx) => (
-                          <span 
-                            key={idx}
-                            className="text-[11px] font-black bg-[#FFFDF6] text-[#121212] px-2 py-0.5 rounded-md border-[1.5px] border-[#121212] shadow-[1.5px_1.5px_0px_#121212]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        {/* Subject / Skill Tags */}
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {teacher.tags.map((tag, idx) => (
+                            <span
+                              key={idx}
+                              className="text-xs uppercase font-black bg-[#FFFDF6] text-[#121212] px-2 py-0.5 rounded-md border-[1.5px] border-[#121212] shadow-[1.5px_1.5px_0px_#121212]"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
@@ -396,12 +453,12 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        playPopSound(650, 'triangle');
+                        playPopSound(650, "triangle");
                         onOpenBooking();
                       }}
-                      className="w-full py-2.5 bg-[#FFDE59] hover:bg-[#ff9f1c] text-[#121212] font-black text-xs uppercase tracking-wide text-center border-[2.5px] border-[#121212] rounded-xl flex items-center justify-center shadow-[3px_3px_0px_#121212] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#121212] transition-all"
+                      className="w-full py-2.5 bg-[#FFDE59] hover:bg-[#ff9f1c] text-[#121212] font-black text-xs uppercase tracking-wide text-center border-[2.5px] border-[#121212] rounded-xl flex items-center justify-center shadow-[3px_3px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212] transition-all"
                     >
-                      <span>Reserve Trial Class</span>
+                      <span>Reserve Class</span>
                     </button>
 
                     {/* Semi-transparent Dim Overlay for non-active 3D cards */}
@@ -424,17 +481,13 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
               aria-label={`Go to slide ${idx + 1}`}
               className={`transition-all ${
                 active === idx
-                  ? 'w-8 h-3 bg-[#121212] border-[2px] border-[#121212] rounded-full shadow-[2px_2px_0px_#A594F9]'
-                  : 'w-3 h-3 bg-white border-[2px] border-[#121212] rounded-full hover:bg-[#FFDE59]'
+                  ? "w-8 h-3 bg-[#121212] border-2 border-[#121212] rounded-full shadow-[2px_2px_0px_#A594F9]"
+                  : "w-3 h-3 bg-white border-2 border-[#121212] rounded-full hover:bg-[#FFDE59]"
               }`}
             />
           ))}
         </div>
-
       </div>
     </section>
   );
 };
-
-
-
