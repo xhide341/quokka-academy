@@ -1,0 +1,23 @@
+node_modules/
+.impeccable/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Build output
+/dist/
+/build/
+/.vite/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Markdown and docs
+*.md
+!README.md
