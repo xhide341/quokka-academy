@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { X, Play, Pause, Volume2, VolumeX, CheckCircle2, Sparkles, Award } from "lucide-react";
+import { X, Play, Pause, Volume2, VolumeX, CheckCircle2, Sparkles } from "lucide-react";
 import { playPopSound } from "../utils/audio";
 
 export const VideoPreviewModal = ({ teacher, isOpen, onClose, onBookTeacher }) => {
