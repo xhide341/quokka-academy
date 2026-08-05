@@ -38,9 +38,9 @@ export const Footer = () => {
         aria-hidden="true"
       />
 
-      <div className="container mx-auto px-4 max-w-6xl space-y-12 relative z-10">
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
         {/* Newsletter Subscription Box */}
-        <div className="bg-[#FF9F1C] border-[3.5px] border-[#121212] rounded-3xl p-6 md:p-10 shadow-[8px_8px_0px_#121212] relative overflow-hidden">
+        <div className="bg-[#FF9F1C] border-[3.5px] border-[#121212] rounded-3xl p-6 md:p-10 shadow-[8px_8px_0px_#121212] relative overflow-hidden mb-10">
           {/* Background Decorative Shapes */}
           <div className="absolute -top-4 right-60 w-24 h-10 bg-[#A594F9] border-[3px] border-[#121212] rounded-full shadow-[3.5px_3.5px_0px_#121212] rotate-12 select-none pointer-events-none opacity-90 hidden sm:block" />
           <div className="absolute -top-3 left-89 w-12 h-12 bg-[#FFDE59] border-[2.5px] border-[#121212] rounded-2xl shadow-[3px_3px_0px_#121212] -rotate-12 select-none pointer-events-none opacity-90 hidden md:block" />
@@ -56,7 +56,7 @@ export const Footer = () => {
               <h3 className="font-heading font-black text-2xl md:text-3xl tracking-tight text-[#121212]">
                 Get Pip's Weekly Fun Learning Pack
               </h3>
-              <p className="font-body font-bold text-xs md:text-sm text-[#121212]/90 max-w-xl mx-auto lg:mx-0">
+              <p className="font-body font-bold text-xs md:text-sm text-[#121212] max-w-xl mx-auto lg:mx-0">
                 Join 10,000+ parents receiving free printable English activity sheets, phonics
                 games, and expert child literacy tips every Tuesday.
               </p>
@@ -73,7 +73,7 @@ export const Footer = () => {
                   <div className="relative flex-1">
                     <Mail
                       size={18}
-                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#121212]/60"
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#121212]"
                     />
                     <input
                       type="email"
@@ -81,7 +81,7 @@ export const Footer = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email address"
                       required
-                      className="w-full pl-10 pr-4 py-3 bg-[#FFFDF6] text-[#121212] font-body font-bold text-sm border-[3px] border-[#121212] rounded-2xl placeholder:text-[#121212]/50 focus:outline-none focus:ring-2 focus:ring-[#121212] shadow-[3px_3px_0px_#121212]"
+                      className="w-full pl-10 pr-4 py-3 bg-[#FFFDF6] text-[#121212] font-body font-bold text-sm border-[3px] border-[#121212] rounded-2xl placeholder:text-[#121212]/70 focus:outline-none focus:ring-2 focus:ring-[#121212] shadow-[3px_3px_0px_#121212]"
                     />
                   </div>
                   <button
@@ -97,7 +97,7 @@ export const Footer = () => {
         </div>
 
         {/* Footer Navigation Columns & Brand */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 items-start mb-6 md:mb-8">
           {/* Brand Info (3 Columns wide on MD, 2 Columns wide on LG) */}
           <div className="md:col-span-3 lg:col-span-2 space-y-4 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
@@ -105,13 +105,13 @@ export const Footer = () => {
                 <span className="font-heading font-black text-2xl tracking-tight text-[#121212]">
                   QUOKKA ACADEMY
                 </span>
-                <p className="text-xs font-bold text-[#121212]/70">
+                <p className="text-xs font-bold text-[#121212]/90">
                   Where Kids Fall in Love with Learning
                 </p>
               </div>
             </div>
 
-            <p className="font-body font-medium text-xs md:text-sm text-[#121212]/80 leading-relaxed max-w-md text-center lg:text-left mx-auto lg:mx-0">
+            <p className="font-body font-bold text-xs md:text-sm text-[#121212] leading-relaxed max-w-md text-center lg:text-left mx-auto lg:mx-0">
               Empowering young learners aged 4 to 12 with live 1-on-1 English lessons, interactive
               game quests with Pip the Quokka, and certified native educators.
             </p>
@@ -158,7 +158,7 @@ export const Footer = () => {
             <h4 className="font-heading font-black text-sm uppercase tracking-wider text-[#121212]">
               Learning Tracks
             </h4>
-            <ul className="space-y-2 font-body font-bold text-xs text-[#121212]/80 flex flex-col items-center lg:items-start">
+            <ul className="space-y-2 font-body font-bold text-xs text-[#121212] flex flex-col items-center lg:items-start">
               <li>
                 <a href="#curriculum" className="hover:underline transition-colors">
                   Phonics & Early Literacy
@@ -192,7 +192,7 @@ export const Footer = () => {
             <h4 className="font-heading font-black text-sm uppercase tracking-wider text-[#121212]">
               Parent Hub
             </h4>
-            <ul className="space-y-2 font-body font-bold text-xs text-[#121212]/80 flex flex-col items-center lg:items-start">
+            <ul className="space-y-2 font-body font-bold text-xs text-[#121212] flex flex-col items-center lg:items-start">
               <li>
                 <a href="#teachers" className="hover:underline transition-colors">
                   Meet Certified Teachers
@@ -221,7 +221,7 @@ export const Footer = () => {
             <h4 className="font-heading font-black text-sm uppercase tracking-wider text-[#121212]">
               Safety & Legal
             </h4>
-            <ul className="space-y-2 font-body font-bold text-xs text-[#121212]/80 flex flex-col items-center lg:items-start">
+            <ul className="space-y-2 font-body font-bold text-xs text-[#121212] flex flex-col items-center lg:items-start">
               <li>
                 <a
                   href="#privacy"
@@ -272,7 +272,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Copyright & Guarantee note */}
-        <div className="pt-6 border-t-[2.5px] border-[#121212]/15 flex flex-col sm:flex-row items-center justify-between gap-4 font-body font-bold text-xs text-[#121212]/60 text-center sm:text-left">
+        <div className="pt-6 border-t-[3.5px] border-[#121212] flex flex-col sm:flex-row items-center justify-between gap-4 font-body font-bold text-xs text-[#121212] text-center sm:text-left">
           <div>© {new Date().getFullYear()} Quokka Academy Inc. All rights reserved.</div>
           <div className="flex items-center gap-1">
             Made with <Heart size={14} className="text-[#FF85A1] fill-[#FF85A1] inline mx-0.5" />{" "}

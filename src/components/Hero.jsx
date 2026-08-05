@@ -14,13 +14,13 @@ export const Hero = ({ onOpenBooking }) => {
       <div className="min-h-[calc(100dvh-72px)] flex flex-col justify-center relative z-10 py-8 md:py-12">
         {/* Main Hero Grid Content */}
         <div className="container relative z-10 my-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Column: Top Badges, Headline, Description & CTA */}
-            <div className="lg:col-span-7 space-y-6 md:space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start">
+            <div className="lg:col-span-6 space-y-6 md:space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start">
               {/* Top Trust Badges (Consolidated Eyebrow) */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
                 <span className="bg-[#2EC4B6] border-[2.5px] border-[#121212] px-3.5 py-1.5 rounded-full shadow-[2.5px_2.5px_0px_#121212] text-xs sm:text-sm font-black text-[#121212] flex items-center gap-1.5 uppercase tracking-wide">
-                  <CheckCirleIcon size={16} color="#121212" fill="#FFFDF6" />
+                  <CheckCircleIcon size={16} color="#121212" fill="#FFFDF6" />
                   100% CERTIFIED PROFESSIONAL EDUCATORS
                 </span>
               </div>
@@ -57,11 +57,11 @@ export const Hero = ({ onOpenBooking }) => {
             </div>
 
             {/* Right Column: Pip Mascot Stage */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center relative my-auto">
+            <div className="lg:col-span-6 flex flex-col items-center justify-center relative my-auto pt-6 lg:pt-0">
               <div className="relative flex justify-center items-center w-full">
                 {/* Introduction Speech Bubble (Centered) */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#F5F2E8] border-[3.5px] border-[#121212] rounded-[20px] px-5 py-3.5 shadow-[4.5px_4.5px_0px_#121212] max-w-none whitespace-nowrap z-30">
-                  <p className="font-['Outfit'] font-black text-base sm:text-lg md:text-xl text-[#121212] leading-none text-center">
+                <div className="absolute -top-7 md:-top-4 lg:-top-2 left-1/2 -translate-x-1/2 bg-[#F5F2E8] border-[3.5px] border-[#121212] rounded-[22px] px-6 py-4 shadow-[5px_5px_0px_#121212] max-w-none whitespace-nowrap z-30">
+                  <p className="font-['Outfit'] font-black text-lg sm:text-xl md:text-2xl text-[#121212] leading-none text-center">
                     G'day! I'm Pip, your learning buddy!
                   </p>
                   {/* Speech Bubble Arrow centered pointing straight down to Pip */}
@@ -69,41 +69,14 @@ export const Hero = ({ onOpenBooking }) => {
                   <div className="absolute -bottom-[8px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[10px] border-t-[#F5F2E8]"></div>
                 </div>
 
-                {/* Overlapping Right Badge */}
-                {/* <div className="absolute bottom-10 right-0 sm:right-4 md:right-8 lg:right-2 bg-[#2EC4B6] border-[2.5px] border-[#121212] px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black text-[#121212] z-20 rotate-0 transform-none shadow-[2.5px_2.5px_0px_#121212] flex items-center gap-1.5 whitespace-nowrap">
-                  NO CREDIT CARD REQUIRED
-                </div> */}
-
                 {/* Overlapping Left Badge (Higher Up) */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-5 bg-[#FFDE59] border-[2.5px] border-[#121212] px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black text-[#121212] z-20 rotate-0 transform-none shadow-[2.5px_2.5px_0px_#121212] flex items-center gap-1.5 whitespace-nowrap">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-6 bg-[#FFDE59] border-[3px] border-[#121212] px-5 py-2 rounded-full text-sm sm:text-base md:text-lg font-black text-[#121212] z-20 rotate-0 transform-none shadow-[3.5px_3.5px_0px_#121212] flex items-center gap-1.5 whitespace-nowrap">
                   PIP THE QUOKKA
                 </div>
 
-                {/* Pointer Cursor pointing to mascot (Top Right) */}
-                {/* <div className="absolute top-10 -right-2 sm:-right-6 lg:-right-6 z-20 pointer-events-none">
-                  <PointerCursorIcon
-                    size={42}
-                    fill="#36749A"
-                    stroke="#121212"
-                    strokeWidth={2.8}
-                    className="rotate-[-78deg]"
-                  />
-                </div> */}
-
-                {/* Pointer Cursor pointing to mascot (Bottom Left) */}
-                {/* <div className="absolute bottom-12 left-3 z-20 pointer-events-none">
-                  <PointerCursorIcon
-                    size={42}
-                    fill="#A594F9"
-                    stroke="#121212"
-                    strokeWidth={2.8}
-                    className="rotate-[95deg]"
-                  />
-                </div> */}
-
                 {/* Mascot Component */}
                 <QuokkaMascot
-                  className="w-[260px] sm:w-[330px] md:w-[380px] lg:w-[430px] xl:w-[450px] max-w-full"
+                  className="w-[320px] sm:w-[420px] md:w-[480px] lg:w-[530px] xl:w-[580px] max-w-full"
                   size="100%"
                   showSpeechBubble={false}
                   interactive={false}
