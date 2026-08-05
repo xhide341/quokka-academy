@@ -1,332 +1,357 @@
-import React, { useState } from 'react';
-import { BookOpen, CheckCircle, Gamepad2, Sparkles, ArrowRight, RotateCcw } from 'lucide-react';
-import { playPopSound, playSuccessSound } from '../utils/audio';
+import React, { useState } from "react";
+import { Sparkles, Clock3, CalendarDays, Timer } from "lucide-react";
+import { playPopSound } from "../utils/audio";
+import { BookIcon } from "../assets/icons/BookIcon";
 
 const CURRICULUM_TRACKS = [
   {
-    id: 'explorers',
-    level: 'Ages 4 - 6',
-    title: 'Little Explorers Track',
-    badge: 'Beginner • Phonics & Play',
-    badgeBg: 'bg-[#FF9F1C]',
-    desc: 'Fun, play-infused lessons that build natural English speech through songs, stories, and Pip the Quokka animated games.',
-    modules: [
-      { name: 'Phonics & Alphabet Magic', detail: 'Master 26 letter sounds and blend initial consonant-vowel combinations.' },
-      { name: 'Daily Vocabulary & Songs', detail: 'Learn 150+ everyday words (Animals, Colors, Family, Food) through fun music.' },
-      { name: 'Interactive Story Time', detail: 'Follow Pip on adventures while answering simple 1-word & 2-word questions.' }
+    id: "explorers",
+    level: "Ages 4 - 6",
+    title: "Little Explorers",
+    badge: "Beginner • Phonics & Play",
+    badgeBg: "bg-[#FF9F1C]",
+    summary:
+      "Play-infused first steps in English built around songs, stories, and guided speaking.",
+    stats: [
+      { label: "Duration", value: "8 weeks" },
+      { label: "Weekly time", value: "~1.5 hrs" },
+      { label: "Session length", value: "30 min" },
     ],
-    questions: [
+    modules: [
       {
-        question: "What fruit is red and crunchy?",
-        options: ['🍎 Apple', '🌿 Eucalyptus Leaf', '🍕 Pizza'],
-        correctIndex: 0,
-        hint: "It starts with the letter A!"
+        name: "Phonics & Alphabet Magic",
+        detail: "Master 26 letter sounds and blend simple consonant-vowel patterns.",
       },
       {
-        question: "Which animal says 'ROAR'?",
-        options: ['🐶 Puppy', '🦁 Lion', '🐱 Kitten'],
-        correctIndex: 1,
-        hint: "King of the jungle!"
+        name: "Daily Vocabulary & Songs",
+        detail: "Build everyday words through music, repetition, and picture prompts.",
       },
       {
-        question: "What color is Pip's bow tie?",
-        options: ['🩵 Mint Green', '🔴 Red', '🟡 Yellow'],
-        correctIndex: 0,
-        hint: "Look at Pip's neck accessory!"
-      }
-    ]
+        name: "Interactive Story Time",
+        detail: "Follow Pip through short stories and answer with simple phrases.",
+      },
+    ],
+    outcomes: [
+      "26 Phonics Sounds",
+      "First 100 Words",
+      "Simple Spoken Answers",
+      "Classroom Basics",
+      "Listening Confidence",
+    ],
+    parentNotes: [
+      "If your child is taking their first steps in English, this track gives them the perfect mix of playful discovery and warm 1-on-1 structure. You'll receive quick, fun at-home prompts after each session, watching your child naturally build listening confidence and ask for English storytime without any pressure.",
+    ],
   },
   {
-    id: 'scholars',
-    level: 'Ages 7 - 9',
-    title: 'Junior Scholars Track',
-    badge: 'Intermediate • Reading & Grammar',
-    badgeBg: 'bg-[#2EC4B6]',
-    desc: 'Empowers kids to speak in complete sentences, read short stories, and express their opinions confidently.',
-    modules: [
-      { name: 'Full Sentence Speaking', detail: 'Transition from single words to structured grammar patterns & questions.' },
-      { name: 'Guided Reading & Comprehension', detail: 'Read illustrated storybooks and discuss main ideas with native teachers.' },
-      { name: 'STEM & World Explorer', detail: 'Learn English while discovering animals, space, geography, and science.' }
+    id: "scholars",
+    level: "Ages 7 - 9",
+    title: "Junior Scholars",
+    badge: "Intermediate • Reading & Grammar",
+    badgeBg: "bg-[#2EC4B6]",
+    summary:
+      "Balanced reading and speaking work for children who are ready to move into full sentences and short stories.",
+    stats: [
+      { label: "Duration", value: "10 weeks" },
+      { label: "Weekly time", value: "~2.25 hrs" },
+      { label: "Session length", value: "45 min" },
     ],
-    questions: [
+    modules: [
       {
-        question: "Fill in the blank: 'Pip ____ to read books every day.'",
-        options: ['love', 'loves', 'loving'],
-        correctIndex: 1,
-        hint: "Use third-person singular present tense!"
+        name: "Full Sentence Speaking",
+        detail: "Move from single words into clear grammar patterns and complete answers.",
       },
       {
-        question: "Which sentence is grammatically correct?",
-        options: ['"They is happy"', '"They are happy"', '"They am happy"'],
-        correctIndex: 1,
-        hint: "'They' pairs with the plural verb 'are'!"
+        name: "Guided Reading & Comprehension",
+        detail: "Read illustrated storybooks and discuss the main idea with a teacher.",
       },
       {
-        question: "What is a synonym of 'BRAVE'?",
-        options: ['Courageous', 'Fearful', 'Quiet'],
-        correctIndex: 0,
-        hint: "Someone who faces fear with courage!"
-      }
-    ]
+        name: "STEM & World Explorer",
+        detail: "Learn English while exploring animals, space, geography, and science.",
+      },
+    ],
+    outcomes: [
+      "Full Sentences",
+      "Short Story Reading",
+      "Grammar Confidence",
+      "Vocabulary Expansion",
+    ],
+    parentNotes: [
+      "If your child already knows basic classroom English, this track helps them leap into full, confident sentences. You'll notice steady progress as our certified teachers gently guide them through guided storybooks and STEM topics, building natural grammar fluency and classroom confidence.",
+    ],
   },
   {
-    id: 'communicators',
-    level: 'Ages 10 - 12',
-    title: 'Master Communicators Track',
-    badge: 'Advanced • Debate & Writing',
-    badgeBg: 'bg-[#A594F9]',
-    desc: 'Advanced curriculum for fluent speaking, persuasive writing, public presentation, and international school/exam prep.',
-    modules: [
-      { name: 'Public Speaking & Presentation', detail: 'Prepare and deliver 2-minute speeches on topics kids care about.' },
-      { name: 'Creative Writing & Essay Structuring', detail: 'Write structured paragraphs, stories, and opinion pieces.' },
-      { name: 'Critical Thinking & Debate', detail: 'Discuss global topics, respectfully defend points of view, and analyze texts.' }
+    id: "communicators",
+    level: "Ages 10 - 12",
+    title: "Master Communicators",
+    badge: "Advanced • Debate & Writing",
+    badgeBg: "bg-[#A594F9]",
+    summary:
+      "Advanced work for fluent speaking, structured writing, presentation skills, and school or exam preparation.",
+    stats: [
+      { label: "Duration", value: "12 weeks" },
+      { label: "Weekly time", value: "~2 hrs" },
+      { label: "Session length", value: "60 min" },
     ],
-    questions: [
+    modules: [
       {
-        question: "Which word best replaces 'VERY HAPPY' in a formal speech?",
-        options: ['Glad', 'Thrilled', 'Good'],
-        correctIndex: 1,
-        hint: "Choose a strong, vibrant adjective!"
+        name: "Public Speaking & Presentation",
+        detail: "Prepare and deliver short speeches on topics children care about.",
       },
       {
-        question: "Identify the persuasive technique in: 'Over 15,000 parents trust us!'",
-        options: ['Social Proof', 'Alliteration', 'Metaphor'],
-        correctIndex: 0,
-        hint: "Showing real evidence of community trust!"
+        name: "Creative Writing & Essay Structuring",
+        detail: "Write structured paragraphs, stories, and opinion pieces with clarity.",
       },
       {
-        question: "Choose the correct prefix for 'BELIEVABLE' to mean NOT believable.",
-        options: ['Un-', 'Dis-', 'In-'],
-        correctIndex: 0,
-        hint: "Un + believable = Unbelievable!"
-      }
-    ]
-  }
+        name: "Critical Thinking & Debate",
+        detail: "Discuss global topics, defend a point of view, and respond thoughtfully.",
+      },
+    ],
+    outcomes: [
+      "Debate & Reasoning",
+      "Structured Writing",
+      "Presentation Poise",
+      "Critical Thinking",
+      "Academic Expression",
+    ],
+    parentNotes: [
+      "Designed for confident young speakers ready to express big ideas, this track equips your child with real public speaking poise, structured essay writing, and thoughtful debate skills. It's ideal if you're preparing your child for international school interviews or academic speech exams.",
+    ],
+  },
 ];
 
-export const CurriculumExplorer = ({ onOpenBooking }) => {
-  const [activeTrackId, setActiveTrackId] = useState('explorers');
-  const [questionIndices, setQuestionIndices] = useState({ explorers: 0, scholars: 0, communicators: 0 });
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [quizAnswered, setQuizAnswered] = useState(false);
-  const [score, setScore] = useState(0);
+const getStatTheme = (label) => {
+  const l = label.toLowerCase();
+  if (l.includes("duration")) {
+    return { icon: CalendarDays, bg: "bg-[#FFDE59]", labelTag: "DURATION" };
+  }
+  if (l.includes("time")) {
+    return { icon: Clock3, bg: "bg-[#2EC4B6]", labelTag: "WEEKLY PACE" };
+  }
+  if (l.includes("session")) {
+    return { icon: Timer, bg: "bg-[#FF85A1]", labelTag: "CLASS LENGTH" };
+  }
+  return { icon: Sparkles, bg: "bg-[#FF9F1C]", labelTag: "METRIC" };
+};
 
-  const activeTrack = CURRICULUM_TRACKS.find(t => t.id === activeTrackId);
-  const currentQIndex = questionIndices[activeTrackId] || 0;
-  const currentQuestion = activeTrack.questions[currentQIndex];
+export const CurriculumExplorer = ({ onOpenBooking }) => {
+  const [activeTrackId, setActiveTrackId] = useState("explorers");
+
+  const activeTrack = CURRICULUM_TRACKS.find((t) => t.id === activeTrackId);
 
   const handleTrackChange = (id) => {
-    playPopSound(500, 'sine');
+    playPopSound(500, "sine");
     setActiveTrackId(id);
-    setSelectedOption(null);
-    setQuizAnswered(false);
-  };
-
-  const handleAnswerQuiz = (idx) => {
-    setSelectedOption(idx);
-    setQuizAnswered(true);
-    if (idx === currentQuestion.correctIndex) {
-      playSuccessSound();
-      setScore(s => s + 1);
-    } else {
-      playPopSound(300, 'sawtooth');
-    }
-  };
-
-  const handleNextQuestion = () => {
-    playPopSound(600, 'sine');
-    const nextIdx = (currentQIndex + 1) % activeTrack.questions.length;
-    setQuestionIndices({ ...questionIndices, [activeTrackId]: nextIdx });
-    setSelectedOption(null);
-    setQuizAnswered(false);
   };
 
   return (
-    <section id="curriculum" className="py-16 md:py-24 bg-[#FFDE59] border-b-[3.5px] border-[#121212] relative overflow-hidden">
-      {/* Varied Organic Background Decorative Shapes */}
-      <div className="absolute top-8 left-8 hidden lg:block rotate-[-15deg] pointer-events-none">
-        {/* Solid Asymmetrical Gem Hexagon */}
-        <svg width="75" height="75" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="filter drop-shadow-[5px_5px_0px_#121212]">
-          <path d="M 50 5 L 90 25 L 85 75 L 45 95 L 10 70 L 15 25 Z" fill="#FFFDF6" stroke="#121212" strokeWidth="4" />
-        </svg>
-      </div>
-      <div className="absolute bottom-8 right-8 hidden lg:block rotate-12 pointer-events-none">
-        {/* Solid Wavy Ribbon Squiggle */}
-        <svg width="85" height="85" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="filter drop-shadow-[4px_4px_0px_#121212]">
-          <path d="M 10 30 Q 30 5 50 30 T 90 30 L 80 60 Q 60 85 40 60 T 0 60 Z" fill="#A594F9" stroke="#121212" strokeWidth="4" />
-        </svg>
-      </div>
-
+    <section
+      id="curriculum"
+      className="py-16 md:py-24 bg-[#FFF0E5] border-b-[3.5px] border-[#121212] relative overflow-hidden"
+    >
       <div className="container space-y-12 relative z-10">
-        
         {/* Section Header */}
-        <div className="text-center space-y-5 max-w-2xl mx-auto mb-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-[2.5px] border-[#121212] rounded-full shadow-[3px_3px_0px_#121212] font-black text-xs uppercase tracking-wider">
-            <BookOpen size={15} />
-            INTERACTIVE CURRICULUM PATHWAY
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-[2.5px] border-[#121212] rounded-full shadow-[3px_3px_0px_#121212] font-black text-xs uppercase tracking-wider text-[#121212]">
+            <BookIcon size={16} color="#121212" fill="#FFDE59" />
+            EXPLORE OUR AGE TRACKS
           </div>
 
           <h2 className="text-3xl md:text-5xl font-black text-[#121212] tracking-tight leading-tight">
-            Designed for Every Stage of <br />
-            <span className="bg-[#FFFDF6] px-3.5 py-1 border-[3.5px] border-[#121212] rounded-xl shadow-[5px_5px_0px_#121212] inline-block rotate-[1deg] mt-1">
-              Child Development
-            </span>
+            Curriculum at a Glance
           </h2>
 
-          <p className="font-bold text-base md:text-lg text-[#121212] pt-2 leading-relaxed">
-            Our CEFR-aligned curriculum progresses smoothly from first words to fluent public speaking and creative writing.
+          <p className="font-bold text-base md:text-lg text-[#121212] leading-relaxed max-w-2xl mx-auto text-pretty">
+            Compare the three age bands and understand the learning outcomes before booking your
+            trial lesson.
           </p>
         </div>
 
-        {/* Level Selector Tabs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-          {CURRICULUM_TRACKS.map(track => (
-            <button
-              key={track.id}
-              onClick={() => handleTrackChange(track.id)}
-              className={`p-4.5 rounded-2xl border-[3.5px] border-[#121212] font-black text-left transition-all ${
-                activeTrackId === track.id
-                  ? 'bg-white text-[#121212] shadow-[6px_6px_0px_#121212] translate-y-[-3px]'
-                  : 'bg-[#FFFDF6] text-[#121212] opacity-90 hover:opacity-100 hover:bg-white'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black bg-[#FF9F1C] text-[#121212] px-2.5 py-0.5 border-[2px] border-[#121212] rounded-md shadow-[1.5px_1.5px_0px_#121212]">
-                  {track.level}
-                </span>
-                <Sparkles size={16} className={activeTrackId === track.id ? 'text-[#FF9F1C]' : 'opacity-30'} />
-              </div>
-              <h3 className="font-black text-lg text-[#121212] mt-2">
-                {track.title}
-              </h3>
-            </button>
-          ))}
-        </div>
+        {/* Main Curriculum Explorer Stage Card */}
+        <div className="relative w-full max-w-6xl mx-auto">
+          {/* Age Tracks Selector (Outside Poster, Left Aligned) */}
+          <div
+            className="flex flex-wrap items-center gap-3 mb-4 relative z-30 justify-start"
+            role="tablist"
+            aria-label="Curriculum Age Tracks"
+          >
+            {CURRICULUM_TRACKS.map((track) => {
+              const isActive = activeTrackId === track.id;
 
-        {/* Active Track Explorer Box */}
-        <div className="neo-card p-6 md:p-8 bg-white border-[3.5px] border-[#121212] shadow-[8px_8px_0px_#121212] rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left: Track Overview & Modules */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-2">
-              <span className={`inline-block font-black text-xs uppercase px-3 py-1 border-[2px] border-[#121212] rounded-lg shadow-[2px_2px_0px_#121212] ${activeTrack.badgeBg}`}>
-                {activeTrack.badge}
-              </span>
-              <h3 className="text-2xl md:text-3xl font-black text-[#121212]">
-                {activeTrack.title} ({activeTrack.level})
-              </h3>
-              <p className="font-bold text-base text-[#444] leading-relaxed">
-                {activeTrack.desc}
-              </p>
+              return (
+                <button
+                  key={track.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handleTrackChange(track.id)}
+                  className={`inline-flex items-center justify-center rounded-2xl border-[2.5px] border-[#121212] px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wide transition-all duration-150 cursor-pointer select-none ${track.badgeBg} text-[#121212] ${
+                    isActive
+                      ? "shadow-[4px_4px_0px_#121212] translate-y-[-2px] opacity-100"
+                      : "shadow-[2px_2px_0px_#121212] opacity-80 hover:opacity-100 hover:shadow-[3.5px_3.5px_0px_#121212] hover:translate-y-[-1px]"
+                  }`}
+                >
+                  <span>{track.level}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="neo-card p-8 sm:p-10 md:p-12 lg:p-14 bg-white border-[3.5px] border-[#121212] shadow-[8px_8px_0px_#121212] rounded-4xl space-y-8 relative">
+            {/* Corner 3D Pushpins */}
+            <div className="absolute inset-0 pointer-events-none z-20">
+              <div className="absolute top-5 left-6 w-4.5 h-4.5 rounded-full bg-[#FFDE59] border-[2px] border-[#121212] shadow-[2px_2px_0px_#121212] overflow-hidden">
+                <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-white/90" />
+              </div>
+              <div className="absolute top-5 right-6 w-4.5 h-4.5 rounded-full bg-[#2EC4B6] border-[2px] border-[#121212] shadow-[2px_2px_0px_#121212] overflow-hidden">
+                <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-white/90" />
+              </div>
+              <div className="absolute bottom-0 left-6 w-4.5 h-4.5 rounded-full bg-[#FF85A1] border-[2px] border-[#121212] shadow-[2px_2px_0px_#121212] overflow-hidden">
+                <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-white/90" />
+              </div>
+              <div className="absolute bottom-0 right-6 w-4.5 h-4.5 rounded-full bg-[#A594F9] border-[2px] border-[#121212] shadow-[2px_2px_0px_#121212] overflow-hidden">
+                <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-white/90" />
+              </div>
             </div>
 
-            {/* Core Modules List */}
-            <div className="space-y-3">
-              <h4 className="font-black text-xs uppercase text-[#121212] tracking-wider">
-                Included Core Modules:
-              </h4>
-              {activeTrack.modules.map((m, idx) => (
-                <div 
-                  key={idx}
-                  className="p-3.5 bg-[#FFFDF6] border-[2.5px] border-[#121212] rounded-xl shadow-[3px_3px_0px_#121212] flex items-start gap-3"
-                >
-                  <CheckCircle size={20} className="text-[#2EC4B6] shrink-0 mt-0.5" strokeWidth={3} />
-                  <div>
-                    <h5 className="font-black text-base text-[#121212]">
-                      {m.name}
-                    </h5>
-                    <p className="text-xs font-bold text-[#555]">
-                      {m.detail}
-                    </p>
+            {/* Active Track Details Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start !mt-0 !mb-0">
+              {/* Left Column: Track Info, Stats, Modules & Outcomes */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Header & Description */}
+                <div className="space-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-[#121212] tracking-tight">
+                    {activeTrack.title}
+                  </h3>
+                  <p className="font-bold text-base text-[#333] leading-relaxed max-w-[65ch]">
+                    {activeTrack.summary}
+                  </p>
+                </div>
+
+                {/* Stats Card Grid */}
+                <div className="grid gap-3.5 sm:grid-cols-3">
+                  {activeTrack.stats.map((stat) => {
+                    const theme = getStatTheme(stat.label);
+                    const IconComponent = theme.icon;
+                    return (
+                      <div
+                        key={stat.label}
+                        className="relative rounded-xl bg-[#FFFDF6] p-2.5 border-[2px] border-dashed border-[#121212] flex items-center gap-2.5 overflow-hidden"
+                      >
+                        <div
+                          className={`${theme.bg} p-1.5 rounded-lg border-[1.5px] border-[#121212] text-[#121212] shrink-0`}
+                        >
+                          <IconComponent size={16} strokeWidth={2.5} />
+                        </div>
+
+                        <div className="min-w-0">
+                          <div className="text-[10px] font-extrabold uppercase tracking-wide text-[#555] truncate">
+                            {stat.label}
+                          </div>
+                          <div className="text-sm font-black text-[#121212] tracking-tight leading-tight truncate">
+                            {stat.value}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Included Core Modules */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-sm uppercase text-[#121212] tracking-wider">
+                    Included Core Modules:
+                  </h4>
+                  <div className="space-y-3">
+                    {activeTrack.modules.map((m) => (
+                      <div key={m.name} className="space-y-0.5">
+                        <h5 className="font-black text-base text-[#121212]">{m.name}</h5>
+                        <p className="text-sm font-medium text-[#555] leading-relaxed max-w-[62ch]">
+                          {m.detail}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <button
-              onClick={() => {
-                playPopSound(600, 'triangle');
-                onOpenBooking();
-              }}
-              className="neo-btn-primary px-6 py-3.5 font-black text-base border-[3px] border-[#121212] rounded-xl inline-flex items-center gap-2 shadow-[4px_4px_0px_#121212]"
-            >
-              <span>Enroll Child in {activeTrack.title}</span>
-              <Sparkles size={18} />
-            </button>
-          </div>
-
-          {/* Right: Interactive Sample Quiz Sandbox Widget with Question Rotation Pool */}
-          <div className="lg:col-span-5 bg-[#FFFDF6] border-[3px] border-[#121212] rounded-2xl p-5 shadow-[5px_5px_0px_#121212] space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b-[2px] border-[#121212]">
-              <span className="font-black text-xs uppercase text-[#121212] flex items-center gap-1.5">
-                <Gamepad2 size={16} className="text-[#FF9F1C]" />
-                Lesson Quiz Pool ({currentQIndex + 1}/{activeTrack.questions.length})
-              </span>
-              <span className="text-xs font-black bg-[#FFDE59] px-2 py-0.5 border-[1.5px] border-[#121212] rounded-md shadow-[1px_1px_0px_#121212]">
-                Score: {score} ⭐
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-black text-base text-[#121212]">
-                {currentQuestion.question}
-              </p>
-
-              {/* Options */}
-              <div className="space-y-2">
-                {currentQuestion.options.map((opt, idx) => {
-                  const isSelected = selectedOption === idx;
-                  const isCorrect = idx === currentQuestion.correctIndex;
-                  
-                  let btnStyle = "bg-white text-[#121212] hover:bg-[#FFDE59]";
-                  if (quizAnswered && isSelected) {
-                    btnStyle = isCorrect 
-                      ? "bg-[#2EC4B6] text-[#121212] font-black" 
-                      : "bg-[#FF85A1] text-[#121212]";
-                  }
-
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => handleAnswerQuiz(idx)}
-                      disabled={quizAnswered}
-                      className={`w-full p-3 rounded-xl border-[2.5px] border-[#121212] font-bold text-sm text-left transition-all flex items-center justify-between shadow-[2.5px_2.5px_0px_#121212] ${btnStyle}`}
-                    >
-                      <span>{opt}</span>
-                      {quizAnswered && isSelected && (
-                        <span>{isCorrect ? '✅ Great Job!' : '❌ Try again'}</span>
-                      )}
-                    </button>
-                  );
-                })}
+                {/* Learning Outcomes (Visible on screens smaller than LG) */}
+                <div className="space-y-3 lg:hidden">
+                  <h4 className="font-black text-sm uppercase text-[#121212] tracking-wider">
+                    Learning Outcomes
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {activeTrack.outcomes.map((item) => (
+                      <span
+                        key={item}
+                        className="inline-flex items-center px-3 py-1.5 bg-[#FFFDF6] text-[#121212] border-[2px] border-[#121212] rounded-xl shadow-[2.5px_2.5px_0px_#121212] font-black text-sm uppercase tracking-wider"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              {/* Quiz Feedback & Question Rotation Button */}
-              {quizAnswered && (
-                <div className="p-3 bg-[#2EC4B6] border-[2px] border-[#121212] rounded-xl text-center space-y-2">
-                  <p className="font-black text-xs text-[#121212]">
-                    {selectedOption === currentQuestion.correctIndex 
-                      ? "🎉 Awesome! That's correct!" 
-                      : `Hint: ${currentQuestion.hint}`}
+              {/* Right Column: Parent Notes & Booking CTA */}
+              <div className="lg:col-span-5 space-y-6 lg:pl-2 relative z-10">
+                {/* What Parents Should Expect */}
+                <div className="space-y-3">
+                  <h4 className="font-black text-sm uppercase text-[#121212] tracking-wider">
+                    What Parents Should Expect:
+                  </h4>
+                  <p className="text-sm font-medium text-[#555] leading-relaxed max-w-[62ch]">
+                    {activeTrack.parentNotes.join(" ")}
                   </p>
-                  <button
-                    onClick={handleNextQuestion}
-                    className="w-full neo-btn-primary py-2 text-xs font-black border-[2px] border-[#121212] rounded-lg shadow-[2px_2px_0px_#121212] flex items-center justify-center gap-1.5"
-                  >
-                    <span>Next Question in Pool</span>
-                    <ArrowRight size={14} />
-                  </button>
                 </div>
-              )}
 
-              <p className="text-xs font-bold text-[#666] text-center pt-1">
-                Classes feature 100+ interactive games & instant teacher feedback!
-              </p>
+                {/* Primary CTA Button */}
+                <button
+                  onClick={() => {
+                    playPopSound(650, "triangle");
+                    onOpenBooking(activeTrack.id);
+                  }}
+                  className="relative w-full text-base sm:text-lg font-black bg-[#FF9F1C] hover:bg-[#FF8C00] text-[#121212] px-6 py-4 rounded-2xl border-[3.5px] border-[#121212] shadow-[6px_6px_0px_#121212] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_#121212] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[2px_2px_0px_#121212] transition-all duration-150 flex items-center justify-center gap-2.5 focus:outline-none overflow-hidden select-none"
+                >
+                  {/* Background Decorative Asymmetrical Shapes (Inside button only, 100% opacity, solid neo-brutalist style matching footer) */}
+                  <div className="absolute -top-3.5 -left-3.5 w-10 h-10 bg-[#FFDE59] border-[2.5px] border-[#121212] rounded-2xl shadow-[2.5px_2.5px_0px_#121212] -rotate-12 select-none pointer-events-none" />
+                  <div className="absolute -bottom-4 right-10 w-16 h-8 bg-[#A594F9] border-[2.5px] border-[#121212] rounded-full shadow-[2.5px_2.5px_0px_#121212] -rotate-6 select-none pointer-events-none" />
+                  <div className="absolute -top-3.5 -right-3.5 w-9 h-9 bg-[#2EC4B6] border-[2.5px] border-[#121212] rounded-full shadow-[2.5px_2.5px_0px_#121212] rotate-45 select-none pointer-events-none" />
+
+                  <span className="relative z-10">Book Free Trial</span>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="shrink-0 rotate-45 transform relative z-10"
+                  >
+                    <path
+                      d="M18.0001 11.9999C17.9952 11.4738 17.7832 10.9708 17.4101 10.5999L13.1201 6.29995C12.9327 6.1137 12.6792 6.00916 12.4151 6.00916C12.1509 6.00916 11.8974 6.1137 11.7101 6.29995C11.6163 6.39291 11.5419 6.50351 11.4912 6.62537C11.4404 6.74723 11.4143 6.87794 11.4143 7.00995C11.4143 7.14196 11.4404 7.27266 11.4912 7.39452C11.5419 7.51638 11.6163 7.62698 11.7101 7.71995L15.0001 10.9999H5.00006C4.73484 10.9999 4.48049 11.1053 4.29295 11.2928C4.10542 11.4804 4.00006 11.7347 4.00006 11.9999C4.00006 12.2652 4.10542 12.5195 4.29295 12.707C4.48049 12.8946 4.73484 12.9999 5.00006 12.9999H15.0001L11.7101 16.2899C11.5218 16.4769 11.4154 16.731 11.4145 16.9964C11.4136 17.2618 11.5181 17.5166 11.7051 17.7049C11.892 17.8932 12.1462 17.9996 12.4115 18.0005C12.6769 18.0014 12.9318 17.8969 13.1201 17.7099L17.4101 13.4099C17.7856 13.0366 17.9978 12.5295 18.0001 11.9999Z"
+                      fill="#121212"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Poster Footer: Learning Outcomes (Visible on LG size and up) */}
+            <div className="hidden lg:block pt-6 border-t-[2.5px] border-[#121212] space-y-3">
+              <h4 className="font-black text-sm uppercase tracking-wider text-[#121212]">
+                Key Learning Outcomes
+              </h4>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {activeTrack.outcomes.map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center px-3.5 py-1.5 bg-[#FFFDF6] text-[#121212] border-[2px] border-[#121212] rounded-xl shadow-[2px_2px_0px_#121212] font-black text-sm uppercase tracking-wider"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

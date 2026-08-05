@@ -10,19 +10,19 @@ export const setSoundEnabled = (enabled) => {
 export const getSoundEnabled = () => soundEnabled;
 
 const getAudioContext = () => {
-  if (!audioCtx && typeof window !== 'undefined') {
+  if (!audioCtx && typeof window !== "undefined") {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
       audioCtx = new AudioContext();
     }
   }
-  if (audioCtx && audioCtx.state === 'suspended') {
+  if (audioCtx && audioCtx.state === "suspended") {
     audioCtx.resume();
   }
   return audioCtx;
 };
 
-export const playPopSound = (freq = 440, type = 'sine') => {
+export const playPopSound = (freq = 440, type = "sine") => {
   if (!soundEnabled) return;
   try {
     const ctx = getAudioContext();
@@ -43,7 +43,7 @@ export const playPopSound = (freq = 440, type = 'sine') => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.08);
-  } catch (e) {
+  } catch {
     // Ignore audio errors silently
   }
 };
@@ -54,12 +54,12 @@ export const playSuccessSound = () => {
     const ctx = getAudioContext();
     if (!ctx) return;
 
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
     notes.forEach((freq, idx) => {
       setTimeout(() => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = 'triangle';
+        osc.type = "triangle";
         osc.frequency.setValueAtTime(freq, ctx.currentTime);
         gain.gain.setValueAtTime(0.15, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
@@ -71,7 +71,7 @@ export const playSuccessSound = () => {
         osc.stop(ctx.currentTime + 0.15);
       }, idx * 70);
     });
-  } catch (e) {
+  } catch {
     // Ignore audio errors
   }
 };
@@ -82,12 +82,12 @@ export const playQuokkaGiggle = () => {
     const ctx = getAudioContext();
     if (!ctx) return;
 
-    const pitches = [587.33, 698.46, 880, 1046.50, 880, 1046.50];
+    const pitches = [587.33, 698.46, 880, 1046.5, 880, 1046.5];
     pitches.forEach((freq, idx) => {
       setTimeout(() => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = 'sine';
+        osc.type = "sine";
         osc.frequency.setValueAtTime(freq, ctx.currentTime);
         gain.gain.setValueAtTime(0.1, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);

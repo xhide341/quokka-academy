@@ -1,30 +1,76 @@
 @import "tailwindcss";
 
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+
+  /* Harmonized OKLCH Palette (Lightness ~68-88%, Chroma ~0.13-0.20) */
+  --color-amber: oklch(75% 0.19 65);
+  --color-yellow: oklch(88% 0.17 95);
+  --color-mint: oklch(76% 0.15 178);
+  --color-lavender: oklch(72% 0.17 285);
+  --color-coral: oklch(68% 0.2 22);
+  --color-pink: oklch(75% 0.18 350);
+  --color-sky: oklch(78% 0.15 230);
+  --color-lime: oklch(82% 0.19 135);
+  --color-tangerine: oklch(72% 0.2 45);
+  --color-violet: oklch(68% 0.2 305);
+  --color-emerald: oklch(75% 0.17 155);
+  --color-periwinkle: oklch(76% 0.14 265);
+  --color-peach: oklch(84% 0.15 55);
+  --color-lilac: oklch(82% 0.13 315);
+  --color-dark: oklch(18% 0.005 85);
+  --color-canvas: oklch(99.2% 0.008 85);
+  --color-white: oklch(100% 0 0);
+}
+
 :root {
-  --bg-canvas: #FFFDF6;
-  --color-dark: #121212;
-  --color-amber: #FF9F1C;
-  --color-yellow: #FFDE59;
-  --color-mint: #2EC4B6;
-  --color-lavender: #A594F9;
-  --color-coral: #FF6B6B;
-  --color-pink: #FF85A1;
-  --color-white: #FFFFFF;
+  /* OKLCH Base Tokens */
+  --bg-canvas: oklch(99.2% 0.008 85);
+  --color-dark: oklch(18% 0.005 85);
+  --color-white: oklch(100% 0 0);
 
-  --border-brutal: 3.5px solid #121212;
-  --border-brutal-sm: 2.5px solid #121212;
-  
-  --shadow-brutal: 5px 5px 0px #121212;
-  --shadow-brutal-sm: 3px 3px 0px #121212;
-  --shadow-brutal-lg: 8px 8px 0px #121212;
-  --shadow-brutal-hover: 2px 2px 0px #121212;
+  /* Core Harmonized Colors */
+  --color-amber: oklch(75% 0.19 65);
+  --color-yellow: oklch(88% 0.17 95);
+  --color-mint: oklch(76% 0.15 178);
+  --color-lavender: oklch(72% 0.17 285);
+  --color-coral: oklch(68% 0.2 22);
+  --color-pink: oklch(75% 0.18 350);
 
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
+  /* Extended Harmonized Palette */
+  --color-sky: oklch(78% 0.15 230);
+  --color-lime: oklch(82% 0.19 135);
+  --color-tangerine: oklch(72% 0.2 45);
+  --color-violet: oklch(68% 0.2 305);
+  --color-emerald: oklch(75% 0.17 155);
+  --color-periwinkle: oklch(76% 0.14 265);
+  --color-peach: oklch(84% 0.15 55);
+  --color-lilac: oklch(82% 0.13 315);
+
+  --border-brutal: 3.5px solid var(--color-dark);
+  --border-brutal-sm: 2.5px solid var(--color-dark);
+
+  --shadow-brutal: 5px 5px 0px var(--color-dark);
+  --shadow-brutal-sm: 3px 3px 0px var(--color-dark);
+  --shadow-brutal-lg: 8px 8px 0px var(--color-dark);
+  --shadow-brutal-hover: 2px 2px 0px var(--color-dark);
+
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
 
   --radius-brutal: 16px;
   --radius-sm: 10px;
   --radius-pill: 9999px;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
 }
 
 * {
@@ -41,7 +87,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 800;
   color: var(--color-dark);
@@ -62,7 +113,9 @@ button {
   border: var(--border-brutal);
   box-shadow: var(--shadow-brutal);
   border-radius: var(--radius-brutal);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .neo-card-interactive:hover {
@@ -78,7 +131,10 @@ button {
   box-shadow: var(--shadow-brutal);
   padding: 12px 24px;
   font-size: 1rem;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
 }
 
 .neo-btn-primary:hover {
@@ -100,7 +156,10 @@ button {
   box-shadow: var(--shadow-brutal);
   padding: 12px 24px;
   font-size: 1rem;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
 }
 
 .neo-btn-secondary:hover {
@@ -122,7 +181,10 @@ button {
   box-shadow: var(--shadow-brutal);
   padding: 12px 24px;
   font-size: 1rem;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
 }
 
 .neo-btn-mint:hover {
@@ -150,29 +212,86 @@ button {
   letter-spacing: 0.03em;
 }
 
-.bg-amber { background-color: var(--color-amber); }
-.bg-yellow { background-color: var(--color-yellow); }
-.bg-mint { background-color: var(--color-mint); }
-.bg-lavender { background-color: var(--color-lavender); }
-.bg-coral { background-color: var(--color-coral); color: white; }
-.bg-pink { background-color: var(--color-pink); }
-.bg-canvas { background-color: var(--bg-canvas); }
-.bg-white { background-color: var(--color-white); }
+.bg-amber {
+  background-color: var(--color-amber);
+}
+.bg-yellow {
+  background-color: var(--color-yellow);
+}
+.bg-mint {
+  background-color: var(--color-mint);
+}
+.bg-lavender {
+  background-color: var(--color-lavender);
+}
+.bg-coral {
+  background-color: var(--color-coral);
+  color: white;
+}
+.bg-pink {
+  background-color: var(--color-pink);
+}
+.bg-sky {
+  background-color: var(--color-sky);
+}
+.bg-lime {
+  background-color: var(--color-lime);
+}
+.bg-tangerine {
+  background-color: var(--color-tangerine);
+}
+.bg-violet {
+  background-color: var(--color-violet);
+  color: white;
+}
+.bg-emerald {
+  background-color: var(--color-emerald);
+}
+.bg-periwinkle {
+  background-color: var(--color-periwinkle);
+}
+.bg-peach {
+  background-color: var(--color-peach);
+}
+.bg-lilac {
+  background-color: var(--color-lilac);
+}
+.bg-canvas {
+  background-color: var(--bg-canvas);
+}
+.bg-white {
+  background-color: var(--color-white);
+}
 
 /* Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(1deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
 }
 
 @keyframes mascot-bounce {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-10px) scale(1.02); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
 }
 
 @keyframes pulse-subtle {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .animate-float {
@@ -184,8 +303,12 @@ button {
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {
@@ -233,7 +356,7 @@ button {
     --shadow-brutal-lg: 5px 5px 0px #121212;
     --border-brutal: 3px solid #121212;
   }
-  
+
   .container {
     padding: 0 16px;
   }

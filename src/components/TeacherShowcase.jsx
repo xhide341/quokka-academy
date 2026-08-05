@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight, Award } from "lucide-react";
 import { playPopSound } from "../utils/audio";
+import { GraduationCapIcon } from "../assets/icons/GraduationCapIcon";
 
 const TEACHERS_DATA = [
   {
@@ -212,44 +213,23 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
   return (
     <section
       id="teachers"
-      className="py-16 md:py-24 bg-[#FFFDF6] border-b-[3.5px] border-[#121212] relative overflow-visible"
+      className="py-16 md:py-24 bg-[#E8F4FD] border-b-[3.5px] border-[#121212] relative overflow-hidden"
     >
-      {/* Decorative Organic Vector Shapes */}
-      <div className="absolute top-10 right-10 hidden lg:block rotate-12 pointer-events-none">
-        <svg
-          width="64"
-          height="64"
-          viewBox="0 0 100 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="filter drop-shadow-[3.5px_3.5px_0px_#121212]"
-        >
-          <path
-            d="M 50 20 C 58 5 72 5 80 20 C 95 28 95 42 80 50 C 95 58 95 72 80 80 C 72 95 58 95 50 80 C 42 95 28 95 20 80 C 5 72 5 58 20 50 C 5 42 5 28 20 20 C 28 5 42 5 50 20 Z"
-            fill="#FFDE59"
-            stroke="#121212"
-            strokeWidth="4"
-          />
-        </svg>
-      </div>
-      <div className="absolute bottom-8 left-12 hidden lg:block -rotate-12 pointer-events-none">
-        <div className="w-12 h-12 bg-[#2EC4B6] border-[3px] border-[#121212] rounded-full shadow-[3.5px_3.5px_0px_#121212]" />
-      </div>
-
-      <div className="container space-y-8 relative z-10 overflow-visible">
+      <div className="container space-y-8 relative z-10 overflow-hidden">
         {/* Section Header & Coverflow Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border-[2.5px] border-[#121212] rounded-full shadow-[2.5px_2.5px_0px_#121212] font-black text-xs uppercase tracking-wider text-[#121212]">
-              100% CERTIFIED PROFESSIONAL TEACHERS
+              <GraduationCapIcon size={16} color="#121212" fill="#FFDE59" />
+              <span>100% CERTIFIED PROFESSIONAL TEACHERS</span>
             </div>
 
             <h2 className="text-3xl md:text-5xl font-black text-[#121212] tracking-tight leading-tight">
               Meet Our Star Educators
             </h2>
-            <p className="font-semibold text-sm md:text-base text-[#444] leading-relaxed">
-              Explore live schedules, certified specialties, and book your
-              child's free 1-on-1 trial session.
+            <p className="font-body font-bold text-base md:text-lg text-[#121212] leading-relaxed text-pretty">
+              Get to know our dedicated teachers, their teaching specialties, and the unique
+              strengths they bring to every lesson.
             </p>
           </div>
 
@@ -274,7 +254,7 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
 
         {/* Originkit 3D Coverflow Container */}
         <div
-          className="relative w-full h-130 md:h-135 flex items-center justify-center overflow-visible focus:outline-none py-4"
+          className="relative w-full h-130 md:h-135 flex items-center justify-center overflow-hidden focus:outline-none py-4"
           style={{ perspective: `${PERSPECTIVE}px` }}
           tabIndex={0}
           role="group"
@@ -404,27 +384,20 @@ export const TeacherShowcase = ({ onOpenBooking }) => {
                             <h3 className="font-black text-base md:text-lg text-[#121212] leading-tight">
                               {teacher.name}
                             </h3>
-                            <p className="font-bold text-xs text-[#555] mt-0.5">
-                              {teacher.role}
-                            </p>
+                            <p className="font-bold text-xs text-[#555] mt-0.5">{teacher.role}</p>
                           </div>
                           {/* Rating Badge in Sunshine Yellow */}
                           <div
                             className="text-[#121212] font-black text-xs px-2.5 py-0.5 border-2 border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] flex items-center gap-1 shrink-0 mt-0.5"
                             style={{ backgroundColor: teacher.accentColor }}
                           >
-                            <Star
-                              size={12}
-                              fill="#FFDE59"
-                              stroke="#121212"
-                              strokeWidth={1.5}
-                            />
+                            <Star size={12} fill="#FFDE59" stroke="#121212" strokeWidth={1.5} />
                             <span>{teacher.rating.toFixed(2)}</span>
                           </div>
                         </div>
 
                         {/* Verified Credential / Achievement Tag */}
-                        <div className="mt-2 flex items-start gap-1 px-3 py-2 bg-[#FFFDF6] border-[1.5px] border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] text-xs font-black text-[#121212]">
+                        <div className="mt-2 flex items-start gap-1 px-3 py-2 bg-[#FFFDF6] border-[1.5px] border-[#121212] rounded-lg shadow-[1.5px_1.5px_0px_#121212] text-sm font-black text-[#121212]">
                           <Award
                             size={18}
                             className="text-[#FF9F1C] shrink-0"

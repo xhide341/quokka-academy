@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { playQuokkaGiggle } from '../utils/audio';
-import pipMascotLogo from '../assets/pip-mascot-logo.svg';
-import pipMascotSleepy from '../assets/pip-mascot-sleepy.svg';
-import pipMascotSleeping from '../assets/pip-mascot-sleeping.svg';
+import React, { useState, useEffect } from "react";
+import { playQuokkaGiggle } from "../utils/audio";
+import pipMascotLogo from "../assets/mascot/pip-mascot-logo.svg";
+import pipMascotSleepy from "../assets/mascot/pip-mascot-sleepy.svg";
+import pipMascotSleeping from "../assets/mascot/pip-mascot-sleeping.svg";
 
-export const QuokkaMascot = ({ 
-  size = 360, 
+export const QuokkaMascot = ({
+  size = 360,
   showSpeechBubble = false,
   speechText = "G'day Mate! Ready to learn?",
   interactive = false,
   className = "",
   enableBlinking = true,
-  eyeState = "auto" // 'auto' | 'open' | 'sleepy' | 'sleeping' | 'closed'
+  eyeState = "auto", // 'auto' | 'open' | 'sleepy' | 'sleeping' | 'closed'
 }) => {
   const [isJumping, setIsJumping] = useState(false);
   const [speechIndex, setSpeechIndex] = useState(0);
-  const [currentEyeFrame, setCurrentEyeFrame] = useState('open');
+  const [currentEyeFrame, setCurrentEyeFrame] = useState("open");
 
   // Preload SVG assets to eliminate image swap latency/flashing
   useEffect(() => {
@@ -27,25 +27,25 @@ export const QuokkaMascot = ({
 
   // Multi-frame Forward & Reverse Blinking Loop (open -> sleepy [90ms] -> sleeping [130ms] -> sleepy [90ms] -> open)
   useEffect(() => {
-    if (!enableBlinking || eyeState !== 'auto') return;
+    if (!enableBlinking || eyeState !== "auto") return;
 
     let stepTimeout1, stepTimeout2, stepTimeout3, nextBlinkTimeout;
 
     const triggerBlink = () => {
       // Step 1: Half-closed (sleepy) for 90ms
-      setCurrentEyeFrame('sleepy');
+      setCurrentEyeFrame("sleepy");
 
       stepTimeout1 = setTimeout(() => {
         // Step 2: Fully closed (sleeping) for 130ms
-        setCurrentEyeFrame('sleeping');
+        setCurrentEyeFrame("sleeping");
 
         stepTimeout2 = setTimeout(() => {
           // Step 3: Reverse back to half-closed (sleepy) for 90ms
-          setCurrentEyeFrame('sleepy');
+          setCurrentEyeFrame("sleepy");
 
           stepTimeout3 = setTimeout(() => {
             // Step 4: Fully open restored
-            setCurrentEyeFrame('open');
+            setCurrentEyeFrame("open");
 
             // Schedule next blink in 3.5s to 5.5s
             const nextDelay = 3500 + Math.random() * 2000;
@@ -66,18 +66,20 @@ export const QuokkaMascot = ({
     };
   }, [enableBlinking, eyeState]);
 
-  const activeState = eyeState !== 'auto' ? eyeState : currentEyeFrame;
-  const activeSvg = 
-    activeState === 'sleeping' || activeState === 'closed' ? pipMascotSleeping :
-    activeState === 'sleepy' ? pipMascotSleepy :
-    pipMascotLogo;
+  const activeState = eyeState !== "auto" ? eyeState : currentEyeFrame;
+  const activeSvg =
+    activeState === "sleeping" || activeState === "closed"
+      ? pipMascotSleeping
+      : activeState === "sleepy"
+        ? pipMascotSleepy
+        : pipMascotLogo;
 
   const speechOptions = [
     speechText,
     "100% Certified Teachers! 🎓",
     "Let's practice together! ✨",
     "High five! 🐾",
-    "Giggle giggle! 🐨"
+    "Giggle giggle! 🐨",
   ];
 
   const handleClick = () => {
@@ -94,20 +96,20 @@ export const QuokkaMascot = ({
   const currentSpeech = speechOptions[speechIndex] || speechText;
 
   return (
-    <div 
-      className={`relative inline-flex flex-col items-center select-none ${interactive ? 'cursor-pointer' : ''} ${className}`}
+    <div
+      className={`relative inline-flex flex-col items-center select-none ${interactive ? "cursor-pointer" : ""} ${className}`}
       onClick={handleClick}
       title={interactive ? "Click Pip the Quokka for a giggle!" : ""}
       style={{
-        transform: isJumping ? 'translateY(-16px) scale(1.04) rotate(-2deg)' : 'none',
-        transition: 'transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        transform: isJumping ? "translateY(-16px) scale(1.04) rotate(-2deg)" : "none",
+        transition: "transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       }}
     >
       {/* Neo-Brutalist Speech Bubble */}
       {showSpeechBubble && (
-        <div 
+        <div
           className="mb-3 px-4 py-2 bg-[#FFFDF6] border-[3.5px] border-[#121212] rounded-[18px] shadow-[4px_4px_0px_#121212] relative z-10 animate-float"
-          style={{ maxWidth: '240px' }}
+          style={{ maxWidth: "240px" }}
         >
           <p className="font-['Outfit'] font-black text-sm text-[#121212] text-center leading-snug">
             {currentSpeech}
@@ -119,18 +121,14 @@ export const QuokkaMascot = ({
       )}
 
       {/* Vector Mascot SVG */}
-      <div 
-        style={{ 
-          width: typeof size === 'number' ? `${size}px` : size,
-          aspectRatio: '329 / 325'
-        }} 
-        className={`relative group max-w-full transition-transform duration-200 ${interactive ? 'hover:scale-[1.02]' : ''}`}
+      <div
+        style={{
+          width: typeof size === "number" ? `${size}px` : size,
+          aspectRatio: "329 / 325",
+        }}
+        className={`relative group max-w-full transition-transform duration-200 ${interactive ? "hover:scale-[1.02]" : ""}`}
       >
-        <img 
-          src={activeSvg}
-          alt="Pip the Quokka Mascot"
-          className="w-full h-full filter"
-        />
+        <img src={activeSvg} alt="Pip the Quokka Mascot" className="w-full h-full filter" />
       </div>
 
       {/* Hidden pre-renderers to ensure instant zero-latency SVG swaps */}
@@ -141,5 +139,3 @@ export const QuokkaMascot = ({
     </div>
   );
 };
-
-
