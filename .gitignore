@@ -12,6 +12,7 @@ node_modules/
 /dist/
 /build/
 /.vite/
+.vite-hooks/
 
 # OS/editor files
 .DS_Store

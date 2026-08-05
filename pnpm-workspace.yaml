@@ -1,0 +1,13 @@
+packages:
+  - "."
+overrides:
+  node-releases: 2.0.51
+  vite: "catalog:"
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.7
+  vite-plus: 0.2.7
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: "*"
