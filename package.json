@@ -30,10 +30,5 @@
       "version": "11.20.0",
       "onFail": "download"
     }
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   }
 }
