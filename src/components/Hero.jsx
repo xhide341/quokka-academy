@@ -8,7 +8,7 @@ export const Hero = ({ onOpenBooking }) => {
   return (
     <section
       id="hero"
-      className="bg-[#FFFDF6] border-b-[3.5px] border-[#121212] relative overflow-hidden flex flex-col justify-between"
+      className="bg-[#FFFDF6] relative overflow-hidden flex flex-col justify-between"
     >
       {/* Dynamic Viewport Stage: Header (72px) + Main Stage = 100dvh */}
       <div className="min-h-[calc(100dvh-72px)] flex flex-col justify-center relative z-10 py-8 md:py-12">
@@ -88,7 +88,7 @@ export const Hero = ({ onOpenBooking }) => {
       </div>
 
       {/* Accreditation Continuous Marquee Loop Bar */}
-      <div className="w-full bg-[#121212] border-t-[3.5px] border-[#121212] py-3.5 overflow-hidden text-white shrink-0">
+      <div className="w-full bg-[#121212] py-3.5 overflow-hidden text-white shrink-0">
         <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
           {/* Loop Set 1 */}
           <div className="flex items-center gap-8 shrink-0">
