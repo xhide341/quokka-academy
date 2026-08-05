@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import {
-  Heart,
-  Mail,
-  Send,
-  CheckCircle2,
-  Youtube,
-  Instagram,
-  Facebook,
-  Globe,
-  Sparkles,
-} from "lucide-react";
+import { Heart, Mail, CheckCircle2, Youtube, Instagram, Facebook, Globe } from "lucide-react";
 import { playPopSound } from "../utils/audio";
-import pipMascotLogo from "../assets/mascot/pip-mascot-logo.svg";
 
-export const Footer = ({ onOpenBooking }) => {
+export const Footer = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 

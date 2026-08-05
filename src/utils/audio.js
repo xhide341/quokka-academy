@@ -100,6 +100,6 @@ export const playQuokkaGiggle = () => {
       }, idx * 45);
     });
   } catch (e) {
-    // Ignore audio errors
+    console.error(e);
   }
 };

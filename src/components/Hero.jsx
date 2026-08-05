@@ -1,10 +1,8 @@
-import { Sparkles, Award } from "lucide-react";
+import { Award } from "lucide-react";
 import { QuokkaMascot } from "./QuokkaMascot";
 import { playPopSound } from "../utils/audio";
-import { ShieldCheckIcon } from "../assets/icons/ShieldCheckIcon";
 import { ArrowRightIcon } from "../assets/icons/ArrowRightIcon";
 import { CheckCircleIcon } from "../assets/icons/CheckCircleIcon";
-import { PointerCursorIcon } from "../assets/icons/PointerCursorIcon";
 
 export const Hero = ({ onOpenBooking }) => {
   return (
@@ -22,7 +20,7 @@ export const Hero = ({ onOpenBooking }) => {
               {/* Top Trust Badges (Consolidated Eyebrow) */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
                 <span className="bg-[#2EC4B6] border-[2.5px] border-[#121212] px-3.5 py-1.5 rounded-full shadow-[2.5px_2.5px_0px_#121212] text-xs sm:text-sm font-black text-[#121212] flex items-center gap-1.5 uppercase tracking-wide">
-                  <ShieldCheckIcon size={16} color="#121212" fill="#FFFDF6" />
+                  <CheckCirleIcon size={16} color="#121212" fill="#FFFDF6" />
                   100% CERTIFIED PROFESSIONAL EDUCATORS
                 </span>
               </div>
